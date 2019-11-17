@@ -1,0 +1,24 @@
+{
+  "name": "quiz",
+  "version": "1.0.0",
+  "description": "quizmaster tool",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vibsterb/quizmaster.git"
+  },
+  "author": "Vibeke Braaten",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vibsterb/quizmaster/issues"
+  },
+  "homepage": "https://github.com/vibsterb/quizmaster#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1"
+  }
+}
