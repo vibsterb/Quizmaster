@@ -6,19 +6,37 @@
 </head>
 
 <body>
-<p> Quizmaster running</p>
+
 <p id="feedback"></p>
-<div id="createUser">
-    <p >Lag en bruker</p>
+<div id="logout">Logg ut</div>
+
+<div id="container"></div>
+
+<template id="loginPage">
+<div>
+    <p >Lag en ny bruker</p>
     <form id="newUser">
       <input type="text" placeholder="brukernavn" name="newUsername" id="newUsername" required>
       <input type="email" placeholder="e-post" name="newEmail" id="newEmail" required>
       <input type="password" placeholder="passord" name="newPsw" id="newPsw" required>
-      <button id="newBtn">Opprett bruker</button>
+      <button>Opprett bruker</button>
     </form>
-
 </div>
 
+<div>
+    <p >Logg på</p>
+      <input type="text" placeholder="brukernavn" name="username" id="username" required>
+      <input type="password" placeholder="passord" name="psw" id="psw" required>
+      <button id="loginBtn">Logg på</button>
+</div>
+</template>
+
+<template id="mainPage">
+  <p> Dette er hovedsiden </p>
+</template>
+
 </body>
+
 <script type="text/javascript" src="javascript/userinfo.js"></script>
+<script type="text/javascript" src="javascript/startup.js"></script>
 </html>

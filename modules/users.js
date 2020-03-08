@@ -1,13 +1,14 @@
 const express = require('express')
 const router = express.Router();
 const db = require("./dbconnect.js");
+const auth = require("./authenticate.js");
 
-//---------- create user ----------
-router.post('/app/newUser', async function(req,res,next){
+//----- create user -----
+router.post('/app/newUser', auth.crypt, async function(req,res,next){
 
   let username = req.body.username;
   let userEmail = req.body.email;
-  let userPsw = req.body.password;
+  let userPsw = req.hashed;
 
   let sql =  `insert into public."Users" ("username", "email", "password")
   values('${username}', '${userEmail}', '${userPsw}')

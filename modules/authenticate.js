@@ -1,12 +1,11 @@
 const express = require('express')
 const router = express.Router();
 const db = require("./dbconnect.js");
-//const bcrypt = require('bcrypt');
-//const saltRounds = 12;
+const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const TOKEN_KEY = process.env.TOKEN_KEY || '';
 
-const TOKEN_KEY = process.env.TOKEN_KEY;
-
+//----- authenticating user -----
 router.get('/app/authenticate', async function(req, res, next){
   let authHeader = req.headers.authorization;
 
@@ -27,11 +26,10 @@ router.get('/app/authenticate', async function(req, res, next){
     try {
       let user = await db.runQuery(sql);
       if(user.length>0) {
-      /*  let correct = await bcrypt.compare(password, user[0].password)
+        let correct = await bcrypt.compare(password, user[0].password)
         .then(function(res){
           return res;
-        });*/
-        let correct = true;
+        });
 
         if(correct){
           let token = jwt.sign({username: username}, TOKEN_KEY);
@@ -58,6 +56,7 @@ router.get('/app/authenticate', async function(req, res, next){
 
 });
 
+//----- verifying jsonwebtoken -----
 router.verifyToken = function(req, res, next){
   let token = req.headers['x-access-token'];
 
@@ -71,17 +70,20 @@ router.verifyToken = function(req, res, next){
 
 }
 
-/*router.crypt = async function(req, res, next){
+//----- hashing password with bcryptjs -----
+router.crypt = function(req, res, next){
 
-  await bcrypt.hash(req.body.password, saltRounds, function(err, hashed){
-    if (err) {
-      return res.status(500).json({message: 'Something went wrong'});
-    } else {
-      req.hashed = hashed;
-      next();
-    }
-  })
+ bcrypt.genSalt(10, function(err, salt) {
+     bcrypt.hash(req.body.password, salt, function(err, hash) {
+        if (err) {
+          return res.status(500).json({message: 'Something went wrong'});
+        } else {
+          req.hashed = hash;
+          next();
+        }
+      });
+  });
 
-};*/
+};
 
 module.exports = router;
